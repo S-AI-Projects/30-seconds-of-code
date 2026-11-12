@@ -50,3 +50,48 @@ caesarCipher('Ebiil Tloia!', -3, true); // 'Hello World!'
 > [!CAUTION]
 >
 > The Caesar cipher is one of the easiest ciphers to break. **Do not use it for sensitive data.**
+
+## Intermediate values
+
+Here is how the letter `H` is processed with a shift of `23`. The method works with character codes:
+
+```js
+const c = 'H'.charCodeAt(0);
+console.log(c); // 72
+console.log(c - 65 + 23); // 30
+console.log((c - 65 + 23) % 26); // 4
+console.log(String.fromCharCode(((c - 65 + 23) % 26) + 65)); // E
+```
+
+## Boundary example
+
+Letters near the end of the alphabet wrap around to the start. With a shift of `3`, `x`, `y` and `z` become `a`, `b` and `c`:
+
+```js
+console.log(caesarCipher('xyz', 3)); // abc
+console.log(caesarCipher('abc', 3, true)); // xyz
+```
+
+## Comparing two methods
+
+The same result can be produced without character codes, by looking letters up in an alphabet string. The difference is the intermediate representation: the source method works with character codes (`72` for `H`), while the alternative works with positions in the alphabet (`7` for `H`).
+
+```js
+const caesarCipherAlt = (str, shift) => {
+  const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const lower = 'abcdefghijklmnopqrstuvwxyz';
+  const n = ((shift % 26) + 26) % 26;
+  return [...str]
+    .map(l => {
+      if (upper.includes(l)) return upper[(upper.indexOf(l) + n) % 26];
+      if (lower.includes(l)) return lower[(lower.indexOf(l) + n) % 26];
+      return l;
+    })
+    .join('');
+};
+
+console.log(caesarCipher('Hello World!', 23)); // Ebiil Tloia!
+console.log(caesarCipherAlt('Hello World!', 23)); // Ebiil Tloia!
+console.log('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.indexOf('H')); // 7
+console.log(caesarCipherAlt('xyz', 3)); // abc
+```
