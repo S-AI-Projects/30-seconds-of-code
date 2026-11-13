@@ -21,6 +21,17 @@ const arr = [1, 2, 3, 4, 5];
 arr.find(x => x > 3); // 4
 ```
 
+Note that `Array.prototype.find()` returns a single value, not an array. If no element satisfies the condition, the result is `undefined`, whereas `Array.prototype.filter()` always returns an array, which is empty (`[]`) when nothing matches. A common misconception is expecting `find()` to return an array or an empty array.
+
+```js
+const arr = [1, 2, 3, 4, 5];
+
+arr.find(x => x > 3); // 4
+arr.find(x => x > 10); // undefined
+arr.filter(x => x > 3); // [4, 5]
+arr.filter(x => x > 10); // []
+```
+
 Additionally, if the condition is a simple equality check, you can also use `Array.prototype.indexOf()`. While not as pretty as the other two, it can be significantly faster, as there's no overhead from using a comparator function.
 
 ```js
