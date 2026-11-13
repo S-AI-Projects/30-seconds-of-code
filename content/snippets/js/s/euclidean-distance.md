@@ -57,3 +57,38 @@ euclideanDistance([1, 1, 1, 1], [2, 3, 2, 3]); // ~3.1623
 ## Complexity
 
 The **time complexity** of the algorithmic implementation is `O(n)`, where `n` is the number of dimensions, due to the complexity of `Array.prototype.map()`.
+
+## Derivation of the result
+
+Here is how `distance(1, 1, 2, 3)` becomes `~2.2361`. First, the differences between the coordinates are computed (`x1 - x0` and `y1 - y0`). Then each difference is squared, the squares are added, and the square root of the sum is taken, which is what `Math.hypot()` does in one call:
+
+```js
+const [x0, y0, x1, y1] = [1, 1, 2, 3];
+const dx = x1 - x0;
+const dy = y1 - y0;
+console.log(dx, dy); // 1 2
+console.log(dx ** 2, dy ** 2); // 1 4
+console.log(dx ** 2 + dy ** 2); // 5
+console.log(Math.sqrt(dx ** 2 + dy ** 2).toFixed(4)); // 2.2361
+console.log(distance(x0, y0, x1, y1).toFixed(4)); // 2.2361
+```
+
+## Derivation with arrays
+
+In the any-dimension version, each point is an array. `Object.keys()` gives the indexes, `Array.prototype.map()` turns every index into a coordinate difference, and the spread operator passes those differences to `Math.hypot()`:
+
+```js
+const a = [1, 1], b = [2, 3];
+console.log(JSON.stringify(Object.keys(a))); // ["0","1"]
+console.log(JSON.stringify(Object.keys(a).map(k => b[k] - a[k]))); // [1,2]
+console.log(Math.hypot(...Object.keys(a).map(k => b[k] - a[k])).toFixed(4)); // 2.2361
+```
+
+## Boundary example
+
+If both points are the same, every difference is `0`, so the distance is `0`. If the points lie on one axis-aligned right triangle with sides `3` and `4`, the distance is exactly `5`:
+
+```js
+console.log(distance(3, 4, 3, 4)); // 0
+console.log(distance(0, 0, 3, 4)); // 5
+```
