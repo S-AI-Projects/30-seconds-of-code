@@ -46,3 +46,19 @@ const ItemListTitle = (count) => (
 ```
 
 Finally, you might be wondering why it's called the "ternary" operator. The word "ternary" is based on the [n-ary word setup](https://en.wikipedia.org/wiki/Arity) and means an operator with three operands (condition, expression to execute if truthy, expression to execute if falsy).
+
+Here is a worked example you can run. With `someCondition = true`, the ternary operator evaluates the condition first (`true`), then picks the first expression (`10`):
+
+```js
+const someCondition = true;
+const x = someCondition ? 10 : 20;
+console.log(x); // 10
+```
+
+The boundary case is a falsy condition. With `someCondition = false`, the condition evaluates to `false`, so the second expression (`20`) is picked instead:
+
+```js
+const someCondition = false;
+const x = someCondition ? 10 : 20;
+console.log(x); // 20
+```
