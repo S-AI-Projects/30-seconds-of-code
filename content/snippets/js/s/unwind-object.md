@@ -22,3 +22,29 @@ const unwind = (key, obj) => {
 unwind('b', { a: true, b: [1, 2] });
 // [{ a: true, b: 1 }, { a: true, b: 2 }]
 ```
+
+## Worked example
+
+Unwinding the key `b` of `{ a: true, b: [1, 2] }` gives one object per value of `b`:
+
+```js
+console.log(JSON.stringify(unwind('b', { a: true, b: [1, 2] }))); // [{"a":true,"b":1},{"a":true,"b":2}]
+```
+
+## Intermediate value
+
+The destructuring step removes `b` from the object. What is left in `rest` is copied into every new object:
+
+```js
+const { b: removed, ...others } = { a: true, b: [1, 2] };
+console.log(JSON.stringify(removed)); // [1,2]
+console.log(JSON.stringify(others)); // {"a":true}
+```
+
+## Boundary example
+
+If the array-valued property is empty, there is nothing to unwind, so the result is an empty array:
+
+```js
+console.log(JSON.stringify(unwind('b', { a: true, b: [] }))); // []
+```
