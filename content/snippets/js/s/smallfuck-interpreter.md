@@ -397,3 +397,38 @@ const smallfuckInterpreter = (code, tape) => {
 ```
 
 </details>
+
+## Reproducible example
+
+The termination checks are curried: `boundCheck(3)` and `codeCompleteCheck(4)` only remember the length they were given in a closure. They read no global variable, so the same input always gives the same answer. Here is how they behave for a tape of length `3` and a program of length `4`:
+
+```js
+console.log(boundCheck(3)(-1), boundCheck(3)(0), boundCheck(3)(2), boundCheck(3)(3)); // true false false true
+console.log(codeCompleteCheck(4)(3), codeCompleteCheck(4)(4)); // false true
+```
+
+The interpreter has no hidden state either. It splits the tape string into a fresh array on every call, so the input string is never changed, and no seed, date, locale or other global setting is used. Running the worked example twice gives the same result, and the original tape is untouched:
+
+```js
+const tape = '00101100';
+console.log(smallfuckInterpreter('*>*>>*>>>*>*', tape)); // 11111111
+console.log(smallfuckInterpreter('*>*>>*>>>*>*', tape)); // 11111111
+console.log(tape); // 00101100
+```
+
+## Intermediate state
+
+Before the loop starts, `parseCode()` turns consecutive pointer moves into one command. The program `>>>*` becomes a move of `3` cells followed by a bit flip:
+
+```js
+console.log(JSON.stringify(parseCode('>>>*'))); // [[">",3],"*"]
+```
+
+## Boundary example
+
+The program ends as soon as the pointer leaves the tape. On a tape of length `1`, `*>*` flips the only bit, moves the pointer out of bounds, and never runs the last `*`. Moving the pointer `3` cells on a tape of length `3` leaves it out of bounds as well, so the tape stays unchanged:
+
+```js
+console.log(smallfuckInterpreter('*>*', '0')); // 1
+console.log(smallfuckInterpreter('>>>*', '000')); // 000
+```
