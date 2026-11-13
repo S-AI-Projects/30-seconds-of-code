@@ -123,7 +123,7 @@ tree.insert(1, 12, 'BC');
 tree.insert(12, 121, 'BG');
 
 [...tree.preOrderTraversal()].map(x => x.value);
-// ['AB', 'AC', 'BC', 'BCG']
+// ['AB', 'AC', 'BC', 'BG']
 
 tree.root.value;              // 'AB'
 tree.root.hasChildren;        // true
@@ -136,4 +136,29 @@ tree.remove(12);
 
 [...tree.postOrderTraversal()].map(x => x.value);
 // ['AC', 'AB']
+```
+
+## Step-by-step state
+
+Here is how the state of a small tree changes as nodes are inserted. A new tree only has a root, which is a leaf. After inserting a child under key `1`, the root has children, and the new node points back to its parent. Inserting under a key that does not exist changes nothing and returns `false`:
+
+```js
+const small = new Tree(1, 'AB');
+console.log(small.root.isLeaf, small.root.hasChildren); // true false
+small.insert(1, 11, 'AC');
+console.log(small.root.isLeaf, small.root.hasChildren); // false true
+console.log(small.insert(99, 100, 'ZZ')); // false
+console.log(small.find(11).parent.key); // 1
+```
+
+## Boundary example
+
+A tree with a single node is traversed in both orders as just that node. Removing the root key does nothing, as `remove()` only looks at the children of each node, and looking up a missing key returns `undefined`:
+
+```js
+const single = new Tree(1, 'AB');
+console.log(JSON.stringify([...single.preOrderTraversal()].map(x => x.value))); // ["AB"]
+console.log(JSON.stringify([...single.postOrderTraversal()].map(x => x.value))); // ["AB"]
+console.log(single.remove(1)); // false
+console.log(single.find(5)); // undefined
 ```
