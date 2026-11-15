@@ -13,10 +13,21 @@ When working with text in the browser, you may need to **get the currently selec
 
 As usual, JavaScript provides a way to achieve this using `Window.getSelection()`, which returns a `Selection` object representing the text currently selected in the document. You can then use `Selection.toString()` to get the actual text content.
 
+Suppose the user has selected the text `Lorem ipsum` on the page. `window.getSelection()` returns the current `Selection` object, and `Selection.toString()` converts its selected text into the string `'Lorem ipsum'`. When there is no active text selection, it returns an empty string (`''`).
+
 ```js
 const getSelectedText = () => window.getSelection().toString();
 
-getSelectedText(); // 'Lorem ipsum'
+// With "Lorem ipsum" selected:
+const selectedText = getSelectedText();
+console.assert(selectedText === 'Lorem ipsum', 'Expected "Lorem ipsum".');
+console.log(selectedText); // 'Lorem ipsum'
+
+// With no text selected:
+window.getSelection().removeAllRanges();
+const emptyText = getSelectedText();
+console.assert(emptyText === '', 'Expected an empty string.');
+console.log(emptyText); // ''
 ```
 
 > [!NOTE]
