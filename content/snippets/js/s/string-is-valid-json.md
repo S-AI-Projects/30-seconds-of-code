@@ -26,4 +26,9 @@ const isValidJSON = str => {
 isValidJSON('{"name":"Adam","age":20}'); // true
 isValidJSON('{"name":"Adam",age:"20"}'); // false
 isValidJSON(null); // true
+isValidJSON(''); // false
 ```
+
+> [!NOTE]
+>
+> `JSON.parse(null)` coerces `null` to the string `'null'`, which evaluates to the JSON primitive `null`, so `isValidJSON(null)` returns `true`. Conversely, an empty string `''` throws a `SyntaxError` and evaluates to `false`.
