@@ -86,6 +86,40 @@ export default [
 
 This setup is optimized for **ESLint & Prettier**, and revised for versions `9.24.0` and `3.5.3` of `eslint` and `prettier`, respectively. I also use `eslint-config-prettier` for compatibility between the two tools.
 
+The versions listed above are exact release numbers. A caret range (`^`) behaves differently: assuming valid `major.minor.patch` version triples, the caret locks the **leftmost non-zero** numeric component and allows compatible updates below the next increment of that component.
+
+- **Non-zero major (`^9.24.0`)**: The components are `(major=9, minor=24, patch=0)`. Since `major` (`9`) is the leftmost non-zero component, `^9.24.0` expands to `>=9.24.0 <10.0.0`—accepting `9.24.0` and `9.99.0`, while rejecting `10.0.0`.
+- **Zero major and minor (`^0.0.3`)**: The components are `(major=0, minor=0, patch=3)`. Because both `major` and `minor` are `0`, `patch` (`3`) becomes the leftmost non-zero boundary, expanding `^0.0.3` to `>=0.0.3 <0.0.4`—accepting `0.0.3`, while rejecting `0.0.4` and `0.1.0`.
+
+To run this example locally, install the `semver` package with `npm install --no-save semver`.
+
+```js
+import semver from 'semver';
+
+console.log(semver.validRange('^9.24.0')); // '>=9.24.0 <10.0.0-0'
+console.log(semver.validRange('^0.0.3')); // '>=0.0.3 <0.0.4-0'
+
+const examples = [
+  ['^9.24.0', '9.24.0'], // true
+  ['^9.24.0', '9.99.0'], // true
+  ['^9.24.0', '10.0.0'], // false
+  ['^0.0.3', '0.0.3'], // true
+  ['^0.0.3', '0.0.4'], // false
+  ['^0.0.3', '0.1.0'], // false
+];
+
+for (const [range, version] of examples) {
+  console.log(`${range} ${version}: ${semver.satisfies(version, range)}`);
+}
+// Output:
+// ^9.24.0 9.24.0: true
+// ^9.24.0 9.99.0: true
+// ^9.24.0 10.0.0: false
+// ^0.0.3 0.0.3: true
+// ^0.0.3 0.0.4: false
+// ^0.0.3 0.1.0: false
+```
+
 Finally, you'll notice an imported `globals.js` file. I'm not 100% sure where I got mine, but you can grab one from [this amazing GitHub repository](https://github.com/sindresorhus/globals) or install the package `globals` from npm. This file contains a list of **global variables** that are available in various environments, such as Node.js, browsers, and more. It helps ESLint understand which variables are defined globally in your code.
 
 ## ESLint
