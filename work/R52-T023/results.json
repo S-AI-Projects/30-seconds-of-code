@@ -1,0 +1,79 @@
+{
+  "task": "R52-T023",
+  "article": "content/snippets/js/s/encodeuri-encodeuricomponent.md",
+  "passed": true,
+  "tool_versions": {
+    "python": "3.9.6",
+    "node": "v22.23.4",
+    "npm": "10.9.9"
+  },
+  "inputs": {
+    "partOfURL": "my-page#with,speci@l&/\"characters\"?",
+    "fullURL": "https://my-website.com/my-page?query=\"a%b\"&user=1",
+    "empty": "",
+    "delimiters": ";,/?:@&=+$#"
+  },
+  "worked_examples": {
+    "encodeURIComponent_block": {
+      "expressions": [
+        "encodeURIComponent(partOfURL)",
+        "encodeURIComponent(fullURL)"
+      ],
+      "expected": [
+        "my-page%23with%2Cspeci%40l%26%2F%22characters%22%3F",
+        "https%3A%2F%2Fmy-website.com%2Fmy-page%3Fquery%3D%22a%25b%22%26user%3D1"
+      ],
+      "actual": [
+        "my-page%23with%2Cspeci%40l%26%2F%22characters%22%3F",
+        "https%3A%2F%2Fmy-website.com%2Fmy-page%3Fquery%3D%22a%25b%22%26user%3D1"
+      ],
+      "passed": true
+    },
+    "encodeURI_block": {
+      "expressions": [
+        "encodeURI(partOfURL)",
+        "encodeURI(fullURL)"
+      ],
+      "expected": [
+        "my-page#with,speci@l&/%22characters%22?",
+        "https://my-website.com/my-page?query=%22a%25b%22&user=1"
+      ],
+      "actual": [
+        "my-page#with,speci@l&/%22characters%22?",
+        "https://my-website.com/my-page?query=%22a%25b%22&user=1"
+      ],
+      "passed": true
+    }
+  },
+  "documented_output": [
+    "component(part): my-page%23with%2Cspeci%40l%26%2F%22characters%22%3F",
+    "uri(part):       my-page#with,speci@l&/%22characters%22?",
+    "component(full): https%3A%2F%2Fmy-website.com%2Fmy-page%3Fquery%3D%22a%25b%22%26user%3D1",
+    "uri(full):       https://my-website.com/my-page?query=%22a%25b%22&user=1",
+    "component(empty): \"\"",
+    "uri(empty):       \"\"",
+    "component(delim): %3B%2C%2F%3F%3A%40%26%3D%2B%24%23",
+    "uri(delim):       ;,/?:@&=+$#"
+  ],
+  "expected": [
+    "component(part): my-page%23with%2Cspeci%40l%26%2F%22characters%22%3F",
+    "uri(part):       my-page#with,speci@l&/%22characters%22?",
+    "component(full): https%3A%2F%2Fmy-website.com%2Fmy-page%3Fquery%3D%22a%25b%22%26user%3D1",
+    "uri(full):       https://my-website.com/my-page?query=%22a%25b%22&user=1",
+    "component(empty): \"\"",
+    "uri(empty):       \"\"",
+    "component(delim): %3B%2C%2F%3F%3A%40%26%3D%2B%24%23",
+    "uri(delim):       ;,/?:@&=+$#"
+  ],
+  "actual": [
+    "component(part): my-page%23with%2Cspeci%40l%26%2F%22characters%22%3F",
+    "uri(part):       my-page#with,speci@l&/%22characters%22?",
+    "component(full): https%3A%2F%2Fmy-website.com%2Fmy-page%3Fquery%3D%22a%25b%22%26user%3D1",
+    "uri(full):       https://my-website.com/my-page?query=%22a%25b%22&user=1",
+    "component(empty): \"\"",
+    "uri(empty):       \"\"",
+    "component(delim): %3B%2C%2F%3F%3A%40%26%3D%2B%24%23",
+    "uri(delim):       ;,/?:@&=+$#"
+  ],
+  "rendered_html_verified": true
+}
