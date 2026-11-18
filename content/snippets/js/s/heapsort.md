@@ -38,7 +38,7 @@ const heapsort = arr => {
   };
 
   for (let i = Math.floor(l / 2); i >= 0; i -= 1) heapify(a, i);
-  for (i = a.length - 1; i > 0; i--) {
+  for (let i = a.length - 1; i > 0; i--) {
     [a[0], a[i]] = [a[i], a[0]];
     l--;
     heapify(a, 0);
@@ -47,6 +47,13 @@ const heapsort = arr => {
 };
 
 heapsort([6, 3, 4, 1]); // [1, 3, 4, 6]
+
+// Boundary examples:
+heapsort([]);              // []
+heapsort([42]);            // [42]
+heapsort([1, 2, 3, 4]);    // [1, 2, 3, 4]
+heapsort([5, 4, 3, 2, 1]); // [1, 2, 3, 4, 5]
+heapsort([3, 1, 3, 2, 1]); // [1, 1, 2, 3, 3]
 ```
 
 ## Complexity
