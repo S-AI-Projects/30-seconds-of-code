@@ -1,0 +1,68 @@
+[
+  {
+    "input": "",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "input": "1,2",
+    "expected": false,
+    "actual": false,
+    "pass": true
+  },
+  {
+    "input": "[object Object]",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "input": "[object Object]",
+    "expected": false,
+    "actual": false,
+    "pass": true
+  },
+  {
+    "input": "",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "input": "text",
+    "expected": false,
+    "actual": false,
+    "pass": true
+  },
+  {
+    "input": "null",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "input": "undefined",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "input": ",,",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "input": "0",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "input": "true",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  }
+]
