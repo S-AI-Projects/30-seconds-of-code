@@ -1,0 +1,98 @@
+{
+  "task": "R52-T026",
+  "snippet": "content/snippets/js/s/add-key-value-pair-to-object.md",
+  "tool_versions": {
+    "python": "3.9.6",
+    "node": "v22.23.4",
+    "npm": "10.9.9"
+  },
+  "status": "PASSED",
+  "cases": [
+    {
+      "name": "worked_intermediate",
+      "input": {
+        "a": 1
+      },
+      "expected": [
+        {
+          "a": 1
+        },
+        {
+          "a": 1,
+          "b": 2
+        },
+        {
+          "a": 1,
+          "b": 2,
+          "c": 3
+        }
+      ],
+      "actual": [
+        {
+          "a": 1
+        },
+        {
+          "a": 1,
+          "b": 2
+        },
+        {
+          "a": 1,
+          "b": 2,
+          "c": 3
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "worked_final",
+      "input": {
+        "a": 1
+      },
+      "expected": {
+        "a": 1,
+        "b": 2,
+        "c": 3
+      },
+      "actual": {
+        "a": 1,
+        "b": 2,
+        "c": 3
+      },
+      "passed": true
+    },
+    {
+      "name": "boundary_intermediate",
+      "input": {},
+      "expected": [
+        {},
+        {
+          "$id_1": 0
+        },
+        {
+          "$id_1": 42
+        }
+      ],
+      "actual": [
+        {},
+        {
+          "$id_1": 0
+        },
+        {
+          "$id_1": 42
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "boundary_final",
+      "input": {},
+      "expected": {
+        "$id_1": 42
+      },
+      "actual": {
+        "$id_1": 42
+      },
+      "passed": true
+    }
+  ]
+}

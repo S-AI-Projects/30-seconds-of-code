@@ -17,10 +17,21 @@ The most common and straightforward way to add a key-value pair to an object is 
 
 ```js
 const obj = { a: 1 };
+// Initial: { a: 1 }
+
 obj.b = 2;
+// Intermediate: { a: 1, b: 2 }
+
 obj.c = 3;
-// obj = { a: 1, b: 2, c: 3 }
+// Final: { a: 1, b: 2, c: 3 }
+
+// Boundary: empty object, identifier symbols ($ / _), overwrite
+const emptyObj = {};
+emptyObj.$id_1 = 0; // { $id_1: 0 }
+emptyObj.$id_1 = 42; // { $id_1: 42 }
 ```
+
+Each dot-notation assignment mutates the object in place and returns the assigned value: `{ a: 1 }` transitions to `{ a: 1, b: 2 }` after `obj.b = 2`, then `{ a: 1, b: 2, c: 3 }` after `obj.c = 3`. For valid identifier keys (`$`, `_`, letters, non-leading digits), `emptyObj.$id_1 = 0` initializes a key on `{}` and `emptyObj.$id_1 = 42` overwrites it in place.
 
 ## Square bracket notation
 
