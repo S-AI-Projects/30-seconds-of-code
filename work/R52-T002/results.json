@@ -1,0 +1,58 @@
+[
+  {
+    "fn": "starts",
+    "text": "/>Lorem ipsum dolor sit amet",
+    "word": "<br />",
+    "expected": "/>",
+    "actual": "/>",
+    "pass": true
+  },
+  {
+    "fn": "ends",
+    "text": "Lorem ipsum dolor sit amet<br /",
+    "word": "<br />",
+    "expected": "<br /",
+    "actual": "<br /",
+    "pass": true
+  },
+  {
+    "fn": "starts",
+    "text": "/>Lorem",
+    "word": "",
+    "pass": true
+  },
+  {
+    "fn": "ends",
+    "text": "Lorem<br /",
+    "word": "",
+    "pass": true
+  },
+  {
+    "fn": "starts",
+    "text": "<br />Hello",
+    "word": "<br />",
+    "expected": "<br />",
+    "actual": "<br />",
+    "pass": true
+  },
+  {
+    "fn": "ends",
+    "text": "Hello<br />",
+    "word": "<br />",
+    "expected": "<br />",
+    "actual": "<br />",
+    "pass": true
+  },
+  {
+    "fn": "starts",
+    "text": "Hello world",
+    "word": "<BR />",
+    "pass": true
+  },
+  {
+    "fn": "ends",
+    "text": "Hello world",
+    "word": "<br />",
+    "pass": true
+  }
+]
