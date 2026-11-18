@@ -1,0 +1,20 @@
+[
+  {
+    "label": "listeners added",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "label": "listeners removed (same ref)",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "label": "inline arrow NOT removed",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  }
+]
