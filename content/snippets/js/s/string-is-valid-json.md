@@ -23,7 +23,21 @@ const isValidJSON = str => {
   }
 };
 
+// Valid JSON strings
 isValidJSON('{"name":"Adam","age":20}'); // true
-isValidJSON('{"name":"Adam",age:"20"}'); // false
-isValidJSON(null); // true
+isValidJSON('[1, 2, 3]');                // true
+isValidJSON('"hello"');                  // true
+isValidJSON('42');                       // true
+
+// Invalid JSON strings
+isValidJSON('{"name":"Adam",age:"20"}'); // false — unquoted key
+isValidJSON('{name: "Adam"}');           // false — unquoted key
+isValidJSON('undefined');                // false — not valid JSON
+
+// Edge cases: JSON.parse(null) returns null without throwing
+isValidJSON(null);                       // true — null is coerced to "null"
 ```
+
+> [!NOTE]
+>
+> `isValidJSON(null)` returns `true` because `JSON.parse(null)` coerces `null` to the string `"null"`, which **is** valid JSON. If you need to exclude non-string inputs, add a type guard: `typeof str === 'string' && isValidJSON(str)`.

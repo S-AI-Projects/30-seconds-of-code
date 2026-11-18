@@ -1,0 +1,50 @@
+[
+  {
+    "input": "{\"name\":\"Adam\",\"age\":20}",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "input": "[1, 2, 3]",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "input": "\"hello\"",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "input": "42",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "input": "{\"name\":\"Adam\",age:\"20\"}",
+    "expected": false,
+    "actual": false,
+    "pass": true
+  },
+  {
+    "input": "{name: \"Adam\"}",
+    "expected": false,
+    "actual": false,
+    "pass": true
+  },
+  {
+    "input": "undefined",
+    "expected": false,
+    "actual": false,
+    "pass": true
+  },
+  {
+    "input": null,
+    "expected": true,
+    "actual": true,
+    "pass": true
+  }
+]
