@@ -43,4 +43,30 @@ const endsWithSubstring = (text, word) => {
 };
 
 endsWithSubstring('Lorem ipsum dolor sit amet<br /', '<br />'); // '<br /'
+
+## Boundary cases
+
+Understanding exactly **when these functions return `undefined`** is as important as knowing when they return a match.
+
+```js
+// Empty search word — the loop never executes, undefined is returned
+startsWithSubstring('/> Lorem', '');       // undefined
+endsWithSubstring('Lorem <br /', '');      // undefined
+
+// Exact match — the full word itself is a valid substring
+startsWithSubstring('<br />Hello', '<br />'); // '<br />'
+endsWithSubstring('Hello<br />',  '<br />'); // '<br />'
+
+// Case-sensitive — 'BR' ≠ 'br'
+startsWithSubstring('Hello world', '<BR />'); // undefined
+endsWithSubstring('Lorem <BR /', '<br />'); // undefined
+
+// No partial match at all
+startsWithSubstring('Hello world', '<br />'); // undefined
+endsWithSubstring('Hello world',  '<br />'); // undefined
+```
+
+> [!NOTE]
+>
+> Both functions iterate from the **longest** possible substring to the shortest, so they always return the **longest matching prefix/suffix** when multiple substrings could match.
 ```
