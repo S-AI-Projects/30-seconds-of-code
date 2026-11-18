@@ -45,11 +45,39 @@ removeClass(document.querySelector('p.special'), 'special');
 
 ## Toggle a class for HTML element
 
-Finally, if you only need to **switch a class on and off**, you can use the `DOMTokenList.toggle()` method.
+Finally, if you only need to **switch a class on and off**, you can use the `DOMTokenList.toggle()` method. The method returns `true` if the class was added, or `false` if it was removed.
 
 ```js
 const toggleClass = (el, className) => el.classList.toggle(className);
 
 toggleClass(document.querySelector('p.special'), 'special');
-// The paragraph will not have the 'special' class anymore
+// returns false; 'special' class is removed
 ```
+
+## Boundary examples and implementation notes
+
+Understanding how `DOMTokenList` handles edge cases ensures predictable DOM state:
+
+```js
+// 1. Idempotent addition: adding an already present class does not create duplicates
+addClass(el, 'special');
+addClass(el, 'special');
+el.classList.contains('special'); // true (only one instance maintained)
+
+// 2. Safe removal: removing a class that does not exist is a silent no-op
+removeClass(el, 'non-existent'); // does not throw
+
+// 3. Exact matching: avoids substring false-positives
+// e.g., an element with class "btn-special" does NOT match "special"
+hasClass(btnElement, 'special'); // false (unlike String.includes checks on className)
+
+// 4. Force toggle: passing a second boolean argument forces add or remove
+const forceToggle = (el, className, force) => el.classList.toggle(className, force);
+forceToggle(el, 'active', true);  // always adds 'active'
+forceToggle(el, 'active', false); // always removes 'active'
+```
+
+> [!NOTE]
+>
+> Using `Element.classList` avoids the classic bugs of manual `element.className` string concatenation or regular expression parsing, which often misidentify substring matches or mishandle extra whitespace between class tokens.
+

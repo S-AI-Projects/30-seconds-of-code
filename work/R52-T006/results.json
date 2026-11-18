@@ -1,0 +1,62 @@
+[
+  {
+    "label": "hasClass on p.special",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "label": "addClass to p",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "label": "removeClass from p.special",
+    "expected": false,
+    "actual": false,
+    "pass": true
+  },
+  {
+    "label": "toggleClass removes existing class",
+    "expected": false,
+    "actual": false,
+    "pass": true
+  },
+  {
+    "label": "class is gone after toggle",
+    "expected": false,
+    "actual": false,
+    "pass": true
+  },
+  {
+    "label": "idempotent addClass keeps single class",
+    "expected": 1,
+    "actual": 1,
+    "pass": true
+  },
+  {
+    "label": "safe removeClass does not alter existing tokens",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "label": "exact match prevents partial match on substring",
+    "expected": false,
+    "actual": false,
+    "pass": true
+  },
+  {
+    "label": "force toggle true adds class",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "label": "force toggle false removes class",
+    "expected": false,
+    "actual": false,
+    "pass": true
+  }
+]
