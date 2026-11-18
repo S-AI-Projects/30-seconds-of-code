@@ -1,0 +1,58 @@
+[
+  {
+    "fn": "first",
+    "input": "2015-08-11",
+    "expected": "2015-08-01",
+    "actual": "2015-08-01",
+    "pass": true
+  },
+  {
+    "fn": "last",
+    "input": "2015-08-11",
+    "expected": "2015-08-31",
+    "actual": "2015-08-31",
+    "pass": true
+  },
+  {
+    "fn": "deriveYear",
+    "input": "2015-08-11",
+    "expected": 2015,
+    "actual": 2015,
+    "pass": true
+  },
+  {
+    "fn": "deriveMonth",
+    "input": "2015-08-11",
+    "expected": 7,
+    "actual": 7,
+    "pass": true
+  },
+  {
+    "fn": "last",
+    "input": "2024-02-10",
+    "expected": "2024-02-29",
+    "actual": "2024-02-29",
+    "pass": true
+  },
+  {
+    "fn": "last",
+    "input": "2023-02-10",
+    "expected": "2023-02-28",
+    "actual": "2023-02-28",
+    "pass": true
+  },
+  {
+    "fn": "first",
+    "input": "2023-12-25",
+    "expected": "2023-12-01",
+    "actual": "2023-12-01",
+    "pass": true
+  },
+  {
+    "fn": "last",
+    "input": "2023-12-25",
+    "expected": "2023-12-31",
+    "actual": "2023-12-31",
+    "pass": true
+  }
+]
