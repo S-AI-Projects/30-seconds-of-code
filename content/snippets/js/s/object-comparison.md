@@ -83,3 +83,39 @@ const f = { 0: 1, 1: 2, 2: 3 };
 
 equals(e, f); // true
 ```
+
+## Resource scaling and practical limits
+
+When choosing between `JSON.stringify()` and deep recursive comparison, consider how memory and execution time scale with object size and structure:
+
+### 1. Memory and time complexity
+- **`JSON.stringify()` approach**:
+  - **Time complexity**: `O(N)` where `N` is the total length of the serialized data.
+  - **Memory overhead**: Allocates two complete string copies in memory (`O(N)` space), which can lead to heap pressure on large payloads.
+  - **Key order sensitivity**: Objects with identical keys inserted in differing orders (e.g., `{ a: 1, b: 2 }` and `{ b: 2, a: 1 }`) serialize differently and evaluate incorrectly to `false`.
+- **Recursive `equals()` approach**:
+  - **Time complexity**: `O(K)` where `K` is the number of properties, with early short-circuiting on the first unequal property.
+  - **Call stack depth**: Uses `O(D)` stack frames for nesting depth `D`. Very deeply nested trees (>10,000 levels) risk a `RangeError: Maximum call stack size exceeded`.
+
+### 2. Circular references
+Neither method handles circular references out of the box:
+- `JSON.stringify()` throws `TypeError: Converting circular structure to JSON`.
+- Recursive comparison without tracking visited objects in a `WeakSet` causes infinite recursion.
+
+## Boundary examples
+
+```js
+// Empty objects and arrays
+equals({}, {}); // true
+equals([], []); // true
+
+// Key order insensitivity in recursive comparison
+equals({ a: 1, b: 2 }, { b: 2, a: 1 }); // true
+
+// Nested empty structures
+equals({ a: {} }, { a: {} }); // true
+
+// Strict primitive type checking
+equals({ x: 1 }, { x: '1' }); // false
+```
+

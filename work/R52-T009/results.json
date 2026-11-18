@@ -1,0 +1,50 @@
+[
+  {
+    "name": "identical objects",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "undefined age mismatch",
+    "expected": false,
+    "actual": false,
+    "pass": true
+  },
+  {
+    "name": "array vs indexed object",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "differing key orders",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "empty objects",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "empty arrays",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "nested empty",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "different primitive types",
+    "expected": false,
+    "actual": false,
+    "pass": true
+  }
+]
