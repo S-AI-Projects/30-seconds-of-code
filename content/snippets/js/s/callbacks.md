@@ -19,8 +19,18 @@ A synchronous callback is a callback function that is executed immediately. The 
 const nums = [1, 2, 3];
 const printDoublePlusOne = n => console.log(2 * n + 1);
 
-nums.map(printDoublePlusOne); // LOGS: 3, 5, 7
+const mapped = nums.map(printDoublePlusOne);
+// LOGS: 3, 5, 7
+// mapped: [undefined, undefined, undefined]
+
+// Pure callback without external console state, plus boundary inputs
+const doublePlusOne = n => 2 * n + 1;
+const doubled = nums.map(doublePlusOne); // [3, 5, 7]
+const emptyMapped = [].map(doublePlusOne); // []
+const zeroMapped = [0].map(doublePlusOne); // [1]
 ```
+
+In the first example, `Array.prototype.map()` invokes `printDoublePlusOne(n, index, array)` synchronously for each element of `[1, 2, 3]`, writing `3`, `5`, and `7` to external `console` state as a side effect while returning `undefined` per element (`[undefined, undefined, undefined]`). Using a stateless callback (`doublePlusOne`) removes reliance on external `console` state so results depend solely on the input array: `[1, 2, 3]` produces `[3, 5, 7]`, the empty boundary array `[]` invokes the callback zero times to return `[]`, and `[0]` returns `[1]`.
 
 ## Asynchronous callbacks
 
