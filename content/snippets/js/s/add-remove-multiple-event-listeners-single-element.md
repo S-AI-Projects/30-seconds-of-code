@@ -69,4 +69,26 @@ removeMultipleListeners(
   myListener
 );
 // The 'click' and 'mousedown' event listeners are removed from the element
+
+## Key invariant: same listener reference
+
+The critical invariant of these two helpers is that **`addMultipleListeners` and `removeMultipleListeners` are only symmetric when called with the exact same listener function reference**.
+
+```js
+const myListener = () => console.log('hello!');
+
+// ✅ Works — same reference used to add and remove
+addMultipleListeners(el, ['click', 'mousedown'], myListener);
+removeMultipleListeners(el, ['click', 'mousedown'], myListener);
+// No listeners remain. The element is clean.
+
+// ❌ Breaks — different function objects, even with identical code
+addMultipleListeners(el, ['click'], () => console.log('hello!'));
+removeMultipleListeners(el, ['click'], () => console.log('hello!'));
+// The listener is NOT removed — arrow functions create new references each time.
+```
+
+> [!IMPORTANT]
+>
+> Always store your listener in a **named variable** before passing it to `addMultipleListeners`. Calling `removeMultipleListeners` with an inline arrow function will silently fail to detach the original listener, causing a **memory leak** and **unexpected event firing**.
 ```
