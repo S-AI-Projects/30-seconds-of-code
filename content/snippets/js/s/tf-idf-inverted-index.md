@@ -25,10 +25,23 @@ const tokenize = str =>
 
 const text = 'The quick brown fox jumps over the lazy dog.';
 const tokens = tokenize(text);
-// ['the', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog']
+// ['the', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog', '']
+
+// Boundary example: hyphens, apostrophes, uppercase, and leading/trailing delimiters
+const boundaryText = "...State-of-the-art NLP's 1st rule!";
+const boundaryTokens = tokenize(boundaryText);
+// ['', 'state-of-the-art', 'nlp's', '1st', 'rule', '']
 ```
 
-All we're doing here is matching characters other than alphanumeric characters, hyphens, and apostrophes and splitting the text into words. We're also filtering out short words and converting all words to lowercase for easier comparison.
+All we're doing here is matching characters other than alphanumeric characters, hyphens, and apostrophes and splitting the text into words, then converting every token to lowercase for consistent comparison.
+
+### Tokenization invariant
+
+For any input string `str`, `tokenize(str)` maintains the following invariants on every returned element `tkn`:
+
+- **Allowed alphabet closure:** `tkn` matches `/^[a-z0-9\-']*$/`—every delimiter character matching `/[^a-z0-9\-']+/i` has been removed, while internal hyphens and apostrophes (such as `state-of-the-art` and `nlp's`) remain intact.
+- **Lowercase idempotence:** `tkn === tkn.toLowerCase()` holds for every token, so re-tokenizing any non-empty joined token list yields the exact same token sequence.
+- **Filter pass-through behavior:** Because unary `!` binds tighter than `<`, JavaScript evaluates `!tkn.length < 2` as `(!tkn.length) < 2`. Since `!tkn.length` coerces to `1` (when `tkn.length === 0`) or `0` (when `tkn.length > 0`), the condition is always `true`, preserving single-character tokens as well as leading or trailing empty-string tokens (`''`) when `str` starts or ends with delimiter characters.
 
 ## Stopword removal
 

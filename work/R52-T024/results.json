@@ -1,0 +1,145 @@
+{
+  "task": "R52-T024",
+  "snippet": "content/snippets/js/s/tf-idf-inverted-index.md",
+  "tool_versions": {
+    "python": "3.9.6",
+    "node": "v22.23.4",
+    "npm": "10.9.9"
+  },
+  "status": "PASSED",
+  "cases": [
+    {
+      "name": "fixture",
+      "input": "The quick brown fox jumps over the lazy dog.",
+      "expected": [
+        "the",
+        "quick",
+        "brown",
+        "fox",
+        "jumps",
+        "over",
+        "the",
+        "lazy",
+        "dog",
+        ""
+      ],
+      "actual": [
+        "the",
+        "quick",
+        "brown",
+        "fox",
+        "jumps",
+        "over",
+        "the",
+        "lazy",
+        "dog",
+        ""
+      ],
+      "passed": true
+    },
+    {
+      "name": "boundary_punct_and_apostrophe",
+      "input": "...State-of-the-art NLP's 1st rule!",
+      "expected": [
+        "",
+        "state-of-the-art",
+        "nlp's",
+        "1st",
+        "rule",
+        ""
+      ],
+      "actual": [
+        "",
+        "state-of-the-art",
+        "nlp's",
+        "1st",
+        "rule",
+        ""
+      ],
+      "passed": true
+    },
+    {
+      "name": "empty_string",
+      "input": "",
+      "expected": [
+        ""
+      ],
+      "actual": [
+        ""
+      ],
+      "passed": true
+    },
+    {
+      "name": "only_delimiters",
+      "input": "!!! --- ???",
+      "expected": [
+        "",
+        "---",
+        ""
+      ],
+      "actual": [
+        "",
+        "---",
+        ""
+      ],
+      "passed": true
+    },
+    {
+      "name": "single_char_and_digits",
+      "input": "A 1 I 0",
+      "expected": [
+        "a",
+        "1",
+        "i",
+        "0"
+      ],
+      "actual": [
+        "a",
+        "1",
+        "i",
+        "0"
+      ],
+      "passed": true
+    },
+    {
+      "name": "mixed_case_hyphens_apostrophes",
+      "input": "Don't STOP co-op_2026!",
+      "expected": [
+        "don't",
+        "stop",
+        "co-op",
+        "2026",
+        ""
+      ],
+      "actual": [
+        "don't",
+        "stop",
+        "co-op",
+        "2026",
+        ""
+      ],
+      "passed": true
+    },
+    {
+      "name": "unicode_and_whitespace_delimiters",
+      "input": " caf\u00e9\tna\u00efve\nJS ",
+      "expected": [
+        "",
+        "caf",
+        "na",
+        "ve",
+        "js",
+        ""
+      ],
+      "actual": [
+        "",
+        "caf",
+        "na",
+        "ve",
+        "js",
+        ""
+      ],
+      "passed": true
+    }
+  ]
+}
