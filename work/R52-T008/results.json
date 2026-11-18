@@ -1,0 +1,82 @@
+[
+  {
+    "input": "Hello World",
+    "fn": "byteSize",
+    "expected": 11,
+    "actual": 11,
+    "pass": true
+  },
+  {
+    "input": "😀",
+    "fn": "byteSize",
+    "expected": 4,
+    "actual": 4,
+    "pass": true
+  },
+  {
+    "input": "",
+    "fn": "byteSize",
+    "expected": 0,
+    "actual": 0,
+    "pass": true
+  },
+  {
+    "input": "a",
+    "fn": "byteSize",
+    "expected": 1,
+    "actual": 1,
+    "pass": true
+  },
+  {
+    "input": "é",
+    "fn": "byteSize",
+    "expected": 2,
+    "actual": 2,
+    "pass": true
+  },
+  {
+    "input": "字",
+    "fn": "byteSize",
+    "expected": 3,
+    "actual": 3,
+    "pass": true
+  },
+  {
+    "input": "अ",
+    "fn": "byteSize",
+    "expected": 3,
+    "actual": 3,
+    "pass": true
+  },
+  {
+    "input": "[object Object]",
+    "fn": "byteSize",
+    "expected": 15,
+    "actual": 15,
+    "pass": true
+  },
+  {
+    "input": "null",
+    "fn": "byteSize",
+    "expected": 4,
+    "actual": 4,
+    "pass": true
+  },
+  {
+    "input": "12345",
+    "fn": "byteSize",
+    "expected": 5,
+    "actual": 5,
+    "pass": true
+  },
+  {
+    "input": "[object Object]",
+    "fn": "safeByteSize",
+    "pass": true
+  },
+  {
+    "input": "null",
+    "fn": "safeByteSize",
+    "pass": true
+  }
+]
