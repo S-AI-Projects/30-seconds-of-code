@@ -47,7 +47,30 @@ If the function is a single expression, you can omit the curly braces and `retur
 
 ```js
 const square = a => a * a;
+
+// Worked example and boundary cases
+square(4); // 16
+square(0); // 0
+square(-3); // 9
+
+// Resource inspection: regular function vs. arrow function
+function regularSquare(a) {
+  return a * a;
+}
+
+typeof square; // 'function'
+typeof regularSquare.prototype; // 'object' (allocates a prototype object)
+square.prototype; // undefined (no prototype object allocated)
 ```
+
+### Operation and resource behavior
+
+- **Fixed-cost execution (`O(1)` time and space):** Evaluating `square(4)` (`16`) or boundary inputs like `square(0)` (`0`) and `square(-3)` (`9`)
+  passes a primitive IEEE 754 `number` by value and performs a single multiplication with no heap allocation or data copying.
+- **Reduced per-function overhead (`O(1)`):** Unlike `function regularSquare(a)`, an arrow function has no `prototype` object (`square.prototype === undefined`),
+  cannot be called with `new`, and omits per-call `arguments` and dynamic `this` bindings.
+- **Closure allocation trade-off (`O(n)`):** Defining an arrow function inside a class field or repeated factory allocates one closure object per instance (`O(n)` for `n` instances),
+  whereas a shared prototype method allocates a single function object (`O(1)`).
 
 ## Execution context
 
