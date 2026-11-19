@@ -1,0 +1,25 @@
+{
+  "task": "R52-T028",
+  "snippet": "content/snippets/js/s/cannot-extend-proxy-object.md",
+  "tool_versions": {
+    "python3": "Python 3.9.6",
+    "node": "v22.23.4",
+    "npm": "10.9.9"
+  },
+  "status": "PASSED",
+  "actual": {
+    "logs": [
+      "Called with b = 2",
+      "Called with x = 10"
+    ],
+    "myProxy": {
+      "a": 1,
+      "b": 2
+    },
+    "emptyProxy": {
+      "x": 10
+    },
+    "subclassError": "TypeError",
+    "nullInputError": "TypeError"
+  }
+}

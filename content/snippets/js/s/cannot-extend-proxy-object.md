@@ -31,4 +31,30 @@ class MyProxy {
 
 const myProxy = new MyProxy({ a: 1 });
 myProxy.b = 2; // LOGS: 'Called with b = 2'
+
+// Boundary case: empty initial object
+const emptyProxy = new MyProxy({});
+emptyProxy.x = 10; // LOGS: 'Called with x = 10'
+
+// Failure cases: extending Proxy directly or passing null
+let subclassError;
+try {
+  class BrokenProxy extends Proxy {}
+} catch (err) {
+  subclassError = err.name; // 'TypeError'
+}
+let nullInputError;
+try {
+  new MyProxy(null);
+} catch (err) {
+  nullInputError = err.name; // 'TypeError'
+}
 ```
+
+### Limitations and contract
+
+- **Direct subclassing (`extends Proxy`) fails:** Because `Proxy.prototype` is `undefined`,
+  evaluating `class BrokenProxy extends Proxy {}` immediately throws a `TypeError`.
+- **Constructor contract:** `Object.keys(value)` initializes properties without triggering `set`,
+  so `value` must be a non-null object (`new MyProxy(null)` throws a `TypeError`),
+  and private class `#fields` cannot be accessed directly through the returned proxy.
