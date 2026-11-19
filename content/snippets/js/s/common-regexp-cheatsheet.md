@@ -16,7 +16,21 @@ dateModified: 2022-11-09
 ```js
 const regexp = /^abc$/;
 // Where 'abc' is the exact string you want to match
+
+const exactMatch = regexp.test('abc'); // true
+const matchResult = regexp.exec('abc'); // ['abc']
+
+// Boundary cases: suffix, leading space, trailing newline, empty string
+const extraSuffix = regexp.test('abcd'); // false
+const leadingSpace = regexp.test(' abc'); // false
+const trailingNewline = regexp.test('abc\n'); // false
+const emptyInput = regexp.test(''); // false
 ```
+
+Step-by-step derivation for `/^abc$/`:
+1. `^` anchors at index `0`, rejecting `' abc'`.
+2. `a`, `b`, `c` match indices `0..2`, advancing cursor to `3` (failing on `''`).
+3. `$` asserts end-of-string at `3`: `'abc'` (`3 === 3`) returns `true` and `['abc']`, while `'abcd'` and `'abc\n'` (`3 !== 4`) return `false`.
 
 ## Match empty string
 

@@ -1,0 +1,52 @@
+{
+  "task": "R52-T027",
+  "snippet": "content/snippets/js/s/common-regexp-cheatsheet.md",
+  "tool_versions": {
+    "python3": "Python 3.9.6",
+    "node": "v22.23.4",
+    "npm": "10.9.9"
+  },
+  "status": "PASSED",
+  "cases": [
+    {
+      "name": "exact_test",
+      "input": "abc",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "name": "exact_exec",
+      "input": "abc",
+      "expected": [
+        "abc"
+      ],
+      "actual": [
+        "abc"
+      ]
+    },
+    {
+      "name": "suffix",
+      "input": "abcd",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "name": "space",
+      "input": " abc",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "name": "newline",
+      "input": "abc\\n",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "name": "empty",
+      "input": "",
+      "expected": false,
+      "actual": false
+    }
+  ]
+}
