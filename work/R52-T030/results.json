@@ -1,0 +1,16 @@
+{
+  "task": "R52-T030",
+  "snippet": "content/snippets/js/s/create-directory-if-not-exists.md",
+  "tool_versions": {
+    "python3": "Python 3.9.6",
+    "node": "v22.23.4",
+    "npm": "10.9.9"
+  },
+  "status": "PASSED",
+  "mutants_killed": 2,
+  "actual": {
+    "dirCreated": true,
+    "idempotentResult": "undefined",
+    "nestedRejectedWith": "ENOENT"
+  }
+}

@@ -23,9 +23,18 @@ const createDirIfNotExists = dir =>
     .then(() => undefined)
     .catch(() => mkdir(dir));
 
-createDirIfNotExists('test');
-// Asynchronously creates the directory 'test', if it doesn't exist
+await createDirIfNotExists('test');
+// Resolves to `undefined` and creates the directory 'test' when it does not exist
+
+await createDirIfNotExists('test');
+// Boundary case: resolves to `undefined` without throwing `EEXIST` when 'test' already exists
 ```
+
+### Behavior and regression contract
+
+- **Missing directory (`'test'` absent):** `access('test')` rejects with `ENOENT`, routing execution into `.catch(() => mkdir('test'))`, which creates `'test'` and resolves to `undefined`.
+- **Existing directory boundary (`'test'` present):** `access('test')` resolves, so `.then(() => undefined)` short-circuits and prevents `mkdir('test')` from rejecting with `EEXIST`.
+- **Single-level path contract:** Without `{ recursive: true }`, passing a nested path whose parent directory does not exist (such as `'parent/child'`) rejects with `ENOENT`.
 
 ## Synchronous approach
 
