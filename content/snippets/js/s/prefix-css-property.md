@@ -6,7 +6,7 @@ tags: [browser,css]
 cover: cancel-typographer
 excerpt: Not sure if you need to prefix a CSS property in order to use it? Here's a simple way to figure it out!
 listed: true
-dateModified: 2023-10-20
+dateModified: 2024-07-04
 ---
 
 Sometimes, you want to use a **CSS property** that is **not yet supported by all browsers**. Browsers often support these properties by using a **vendor prefix**, which is a string that is prepended to the property name. For example, Safari uses `-webkit-`, Firefox uses `-moz-` etc.
@@ -64,4 +64,7 @@ const prefix = prop => {
 prefix('appearance');
 // 'appearance' on a supported browser, otherwise 'webkitAppearance',
 //   'mozAppearance', 'msAppearance' or 'oAppearance'
+
+// Boundary case: if neither the standard property nor any prefixed variant is supported
+prefix('nonExistentProperty'); // null
 ```
