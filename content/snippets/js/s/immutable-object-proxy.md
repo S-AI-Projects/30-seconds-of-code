@@ -40,6 +40,10 @@ const immutableProperty = immutableTerm.properties[0];
 immutableTerm.name = 'hi';            // Error: This object is immutable.
 immutableTerm.id = 2;                 // Error: This object is immutable.
 immutableProperty.value = 'pronoun';  // Error: This object is immutable.
+
+// Boundary: read access is unaffected — the get trap returns values normally.
+immutableTerm.id;    // 1
+immutableTerm.value; // 'hello'
 ```
 
 Even though proxies are not all that common, this code shouldn't be hard to understand. The gist of the idea is that you use a handler to **prevent mutations to the object** via the `set()` trap. Additionally, you use the `get()` trap to **enforce immutability on all nested values**. This is done by checking the type of the value and applying the proxy to nested objects.

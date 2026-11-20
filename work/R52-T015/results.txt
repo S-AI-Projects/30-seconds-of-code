@@ -1,0 +1,42 @@
+Node version: v22.14.0
+
+=== INPUT (extracted from immutable-object-proxy.md) ===
+const term = {
+  id: 1,
+  value: 'hello',
+  properties: [{ type: 'usage', value: 'greeting' }],
+};
+
+const immutable = obj =>
+  new Proxy(obj, {
+    get(target, prop) {
+      return typeof target[prop] === 'object'
+        ? immutable(target[prop])
+        : target[prop];
+    },
+    set() {
+      throw new Error('This object is immutable.');
+    },
+  });
+
+const immutableTerm = immutable(term);
+const immutableProperty = immutableTerm.properties[0];
+
+immutableTerm.name = 'hi';            // Error: This object is immutable.
+immutableTerm.id = 2;                 // Error: This object is immutable.
+immutableProperty.value = 'pronoun';  // Error: This object is immutable.
+
+// Boundary: read access is unaffected — the get trap returns values normally.
+immutableTerm.id;    // 1
+immutableTerm.value; // 'hello'
+
+
+=== EXPECTED RESULTS ===
+immutableTerm.name = 'hi'          => throws 'This object is immutable.'
+immutableTerm.id = 2               => throws 'This object is immutable.'
+immutableProperty.value='pronoun'  => throws 'This object is immutable.'
+immutableTerm.id  (read)           => 1       (boundary: get passthrough)
+immutableTerm.value (read)         => 'hello' (boundary: get passthrough)
+deliberate wrong result            => FAIL detected
+
+Note: no seeds/dates/locale needed — example is fully deterministic.
