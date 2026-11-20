@@ -131,6 +131,13 @@ const result = formatDayRanges(inputData);
 //   'Saturday: 10:00 - 14:00',
 //   'Sunday: Closed'
 // ]
+
+// Boundary: empty input — no days provided, so every weekday gets 'Closed'.
+// Intermediate state: reduce groups all 7 days into one entry
+//   { days: ['Monday',...,'Sunday'], hours: 'Closed' }
+// Because days.length === 7, the map step emits 'Everyday: Closed'.
+const boundaryResult = formatDayRanges([]);
+// [ 'Everyday: Closed' ]
 ```
 
 Notice that we're using a **second loop** over the first grouped result in the form of `Array.prototype.map()`. This can be avoided, but I found it to be more readable and easier to understand. Moreover, the performance impact is negligible.
