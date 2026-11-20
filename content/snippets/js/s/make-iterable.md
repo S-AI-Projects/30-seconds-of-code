@@ -32,4 +32,8 @@ class IterableNumber extends Number {
 
 const num = new IterableNumber(1337);
 [...num]; // [ 1, 3, 3, 7]
+
+// Boundary: single-digit number yields a one-element array
+const single = new IterableNumber(5);
+[...single]; // [ 5 ]
 ```
