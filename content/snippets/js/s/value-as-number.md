@@ -6,7 +6,7 @@ tags: [browser,input]
 cover: mac-and-coffee
 excerpt: Ever wanted to get the value of an HTML input element as a number? Learn an easy way to do it with this handy trick.
 listed: true
-dateModified: 2021-06-12
+dateModified: 2024-07-04
 ---
 
 Most of the time, when accessing the value of an `HTMLInputElement` in an event listener, we use something along the lines of `e.target.value`. This is fine in most cases, but when we want the numeric value of an input field, we have to parse it and check if the value is actually valid etc. That can get very annoying, especially when working with larger forms that have many input fields.
@@ -17,9 +17,15 @@ What if I told you there's an easier way to get the numeric value from an input 
 const quantityInput = document.getElementById('quantity-input');
 let quantity;
 // Bad: parseFloat() converts the string to a number
-quantity = parseFloat(quantityInput.value);
-// Good: returns a numeric value
-quantity = quantityInput.valueAsNumber;
+// Step 1: quantityInput.value evaluates to string '42.5'
+// Step 2: parseFloat('42.5') converts the string to numeric 42.5
+quantity = parseFloat(quantityInput.value); // 42.5
+// Good: returns a numeric value directly from the DOM element
+quantity = quantityInput.valueAsNumber; // 42.5
+
+// Boundary case: empty or invalid numeric input returns NaN
+const emptyInput = document.getElementById('empty-input');
+emptyInput.valueAsNumber; // NaN
 ```
 
 As usual, this comes with a caveat which is that it only works for `type="number"` inputs (although that's probably where you need it the most). On a side note, you can also use `HTMLInputElement.valueAsDate` to get a `Date` object from a `type="date"` input, which might also come in handy in some cases.

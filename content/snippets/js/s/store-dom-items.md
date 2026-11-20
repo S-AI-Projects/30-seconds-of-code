@@ -6,7 +6,7 @@ tags: [browser]
 cover: armchair
 excerpt: Increase your JavaScript code's performance when working with the DOM by leveraging this simple trick.
 listed: true
-dateModified: 2021-06-12
+dateModified: 2024-07-04
 ---
 
 DOM operations, including accessing the DOM, are generally slow. This is usually not a problem until you have to perform many DOM operations and your JavaScript application's performance starts to suffer. A very quick trick to increase performance is to store DOM elements or their values in local variables if you plan to access them multiple times.
@@ -22,6 +22,13 @@ const myElement = document.querySelector('#my-element');
 myElement.classList.add('my-class');
 myElement.textContent = 'hello';
 myElement.hidden = false;
+
+// If an element does not exist, guard before accessing properties
+const missingElement = document.querySelector('#non-existent');
+if (missingElement) {
+  missingElement.textContent = 'boundary check';
+}
+// missingElement is null
 ```
 
 Note that, while this trick may come in handy, it comes with the caveat that if you later remove the DOM element and you still have it stored in a variable, the variable should be set to `null` to avoid potential memory leaks.

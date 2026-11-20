@@ -6,7 +6,7 @@ tags: [string,browser]
 cover: alfama
 excerpt: A short guide on how to correctly construct a URL in JavaScript.
 listed: true
-dateModified: 2023-02-26
+dateModified: 2024-07-04
 ---
 
 Oftentimes, we need to **create a URL in JavaScript**, to request a resource or redirect the user. A seemingly simple task, yet URLs can be quite nuanced and complex, requiring a lot of attention to get right. This rings especially true if you've ever worked with different encodings and multiple **query parameters**.
@@ -18,8 +18,17 @@ const query = "Where's Waldø?";
 const locale = "en-US";
 const campaign = "promo_email";
 
+// Derivation step 1: template literal interpolates variables directly without percent-encoding
+// - query evaluates to "Where's Waldø?"
+// - locale evaluates to "en-US"
+// - campaign evaluates to "promo_email"
 const url = `https://examp.le?q=${query}&lang=${locale}&from=${campaign}`;
 // "https://examp.le?q=Where's Waldø?&lang=en-US&from=promo_email"
+
+// Boundary case: constructing a URL with empty query parameters
+const emptyQuery = "";
+const emptyUrl = `https://examp.le?q=${emptyQuery}`;
+// "https://examp.le?q="
 ```
 
 As you can see, template literals aren't well-suited for URLs, as they won't **encode special characters**. If you've worked with JavaScript for any amount of time, you might reach for `encodeURIComponent()` to fix this:
