@@ -1,0 +1,20 @@
+Node version: v22.14.0
+
+=== INPUT (extracted from partially-apply-function.md, first js block) ===
+const partial = (fn, ...partials) => (...args) => fn(...partials, ...args);
+
+const greet = (greeting, name) => greeting + ' ' + name + '!';
+const greetHello = partial(greet, 'Hello');
+greetHello('John'); // 'Hello John!'
+
+// Boundary: pre-fill ALL arguments — the returned function needs zero extra args.
+// Precondition: partials already satisfies fn's full parameter list,
+// so calling the result with no arguments works correctly.
+const greetHelloJohn = partial(greet, 'Hello', 'John');
+greetHelloJohn(); // 'Hello John!'
+
+
+=== EXPECTED RESULTS ===
+greetHello('John')       =>  'Hello John!'  (literal worked example)
+greetHelloJohn()         =>  'Hello John!'  (boundary: all args pre-filled)
+deliberate wrong result  =>  FAIL detected
