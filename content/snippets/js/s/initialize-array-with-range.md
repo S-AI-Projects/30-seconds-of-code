@@ -32,6 +32,9 @@ const range = (end, start = 0, step = 1) =>
 range(5); // [0, 1, 2, 3, 4]
 range(7, 3); // [3, 4, 5, 6]
 range(9, 0, 2); // [0, 2, 4, 6, 8]
+
+// Boundary: end === start produces an empty array (zero-length range)
+range(0); // []
 ```
 
 ## Initialize array with a reversed numeric range
