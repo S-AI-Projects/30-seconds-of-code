@@ -24,6 +24,12 @@ const partial = (fn, ...partials) => (...args) => fn(...partials, ...args);
 const greet = (greeting, name) => greeting + ' ' + name + '!';
 const greetHello = partial(greet, 'Hello');
 greetHello('John'); // 'Hello John!'
+
+// Boundary: pre-fill ALL arguments — the returned function needs zero extra args.
+// Precondition: partials already satisfies fn's full parameter list,
+// so calling the result with no arguments works correctly.
+const greetHelloJohn = partial(greet, 'Hello', 'John');
+greetHelloJohn(); // 'Hello John!'
 ```
 
 ## Append arguments to a function
