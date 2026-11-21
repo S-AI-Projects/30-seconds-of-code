@@ -25,8 +25,15 @@ const formatter = new Intl.RelativeTimeFormat('en', {
   numeric: 'auto',
   style: 'long',
 });
-```
 
+// One day in the past
+console.log(formatter.format(-1, 'day')); // 'yesterday'
+
+// Boundary case: zero difference
+console.log(formatter.format(0, 'day')); // 'today'
+
+```
+The formatter uses the explicitly supplied `'en'` locale, so its output does not depend on the environment's default locale. The `format()` method receives a numeric value and a time unit. For example, `-1` with `'day'` represents one day in the past and produces `'yesterday'`. At the boundary value `0`, the formatter produces `'today'`. Since `numeric` is set to `'auto'`, it uses special relative terms where available instead of always displaying numeric values.
 | Options | Sample output |
 | --- | --- |
 | `{ numeric: 'always', style: 'long' }` | 1 day ago |
