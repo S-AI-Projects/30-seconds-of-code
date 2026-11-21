@@ -6,7 +6,7 @@ tags: [object,class,symbol,generator]
 cover: book-chair
 excerpt: Enums are part of TypeScript, but what about defining enums in plain old JavaScript? Here are a few way you can do that.
 listed: true
-dateModified: 2021-06-12
+dateModified: 2024-07-04
 ---
 
 TypeScript's enums are a very convenient feature present in many other languages. JavaScript, however, does not have a similar concept at this time. But what JavaScript lacks in syntactic sugar it makes up for in terms of flexibility.
@@ -23,7 +23,27 @@ const daysEnum = Object.freeze({
   saturday: 5,
   sunday: 6
 });
+
+// An alternative functional approach using Object.fromEntries()
+const createEnum = (...keys) =>
+  Object.freeze(Object.fromEntries(keys.map((key, i) => [key, i])));
+
+const daysEnumAlt = createEnum(
+  'monday',
+  'tuesday',
+  'wednesday',
+  'thursday',
+  'friday',
+  'saturday',
+  'sunday'
+);
+
+// Boundary case: empty enum
+const emptyEnum = Object.freeze({});
+const emptyEnumAlt = createEnum();
 ```
+The object literal defines each weekday and its numeric value directly, making it straightforward for a fixed set of values. The alternative uses a `createEnum()` function with rest parameters to accept different lists of keys. It uses `map()` to create an array of key-value pairs, then `Object.fromEntries()` to construct the object before freezing it. This makes the function reusable, but involves additional intermediate array creation and processing. Both approaches produce equivalent frozen objects for the supplied weekday input. The empty enum boundary case also produces an empty frozen object in both approaches.
+
 
 Taking this one step further, one could extract the logic into a function with a variable number of arguments and producing a frozen object. There is very little benefit to this technique, so a better alternative would be to create a simple `class`. After all, enums are more common in object-oriented programming languages, so this sounds like a great fit.
 
