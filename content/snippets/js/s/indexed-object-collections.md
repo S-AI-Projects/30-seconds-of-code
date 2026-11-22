@@ -26,8 +26,8 @@ const collection = {
   objects: [],
   index: new Map(),
   add(...objects) {
-    objects.forEach((obj) => {
-      if (obj.id === object.id)
+    objects.forEach((object) => {
+      if (this.index.has(object.id))
         throw new Error(`Object with ID ${object.id} already exists`);
 
       this.objects.push(object);
@@ -65,6 +65,14 @@ collection.get(840); // { id: 840, name: 'Banana' }
 ```
 
 In this example, we have a collection of objects, each with a unique `id` field. We use a `Map` to create an index on the `id` property. When we **add an object** to the collection, we also **add it to the index**. When we want to retrieve an object by `id`, we can **look it up in the index**, which is much faster than searching through the entire collection.
+
+**Boundary — missing id:** `Map.prototype.get()` returns `undefined` for a key that is not in the index, so `collection.get()` propagates that value directly. No exception is thrown; callers must guard against `undefined`.
+
+```js
+collection.get(999); // undefined  (id 999 was never added)
+```
+
+**Time and space trade-off:** The `Map` index gives **O(1) average-time** lookup (hash-table internals) compared to **O(n)** for `Array.prototype.find()`. The cost is extra space: the index holds one `Map` entry per stored object, so the collection uses roughly **twice the memory** of the plain objects array alone. This is the classic time-space trade-off that makes indexes worthwhile for read-heavy workloads and costly for extremely memory-constrained ones.
 
 ## Cardinality
 
