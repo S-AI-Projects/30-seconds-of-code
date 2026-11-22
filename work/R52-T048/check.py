@@ -7,8 +7,9 @@ import json
 import re
 import subprocess
 import sys
+from pathlib import Path
 
-MD = "S-AI-Project/content/snippets/js/s/transpose-matrix.md"
+MD = str(Path(__file__).resolve().parents[2] / "content/snippets/js/s/transpose-matrix.md")
 
 with open(MD, encoding="utf-8") as fh:
     content = fh.read()
