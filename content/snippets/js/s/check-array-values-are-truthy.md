@@ -22,6 +22,27 @@ all([4, 2, 3], x => x > 1); // true
 all([1, 2, 3]); // true
 ```
 
+### Boundary case: empty array
+
+By ECMAScript specification for `Array.prototype.every()`, checking a condition on an empty array vacuously returns `true` for any predicate:
+
+```js
+all([]); // true
+all([], () => false); // true
+```
+
+### Regression protection: distinguishing `every` from `some`
+
+A common accidental regression or typo is replacing `arr.every(fn)` with `arr.some(fn)` (an existential check rather than universal quantification). On arrays with mixed truthy and falsy values, or empty arrays, this mutant produces incorrect results:
+
+```js
+// Mixed array: all must be truthy
+all([1, 0, 3]); // false (0 is falsy)
+
+// An accidental mutant: (arr, fn = Boolean) => arr.some(fn)
+// returns true for [1, 0, 3] and false for [], failing regression tests
+```
+
 ## Check if any values in an array are truthy
 
 Using `Array.prototype.some()`, we can check if any values in an array are truthy. The `Boolean` function can be used as a default callback to check if any values are truthy, but specifying a custom callback function is also possible.
