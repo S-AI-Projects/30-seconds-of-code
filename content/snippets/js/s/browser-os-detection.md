@@ -23,6 +23,22 @@ isMac; // true if the user is on a Mac, false otherwise
 
 All we do here is take the value, use `String.prototype.toLowerCase()`, and check if it contains the string `mac`. If it does, we know the user is on a Mac.
 
+**How it works — step by step:** `navigator.platform` returns a vendor string such as `'MacIntel'` or `'Win32'`. `.toLowerCase()` normalises the case (`'macintel'`), and `.includes('mac')` checks whether the substring `'mac'` appears **anywhere** in that string.
+
+```js
+// Concrete intermediate values for 'MacIntel':
+// navigator.platform           → 'MacIntel'
+// .toLowerCase()               → 'macintel'
+// .includes('mac')             → true  ✔ user is on a Mac
+
+// Boundary — Windows platform string:
+// navigator.platform           → 'Win32'
+// .toLowerCase()               → 'win32'
+// .includes('mac')             → false ✔ not a Mac
+```
+
+> **Ambiguous case — iPad on iPadOS 13+:** Since iPadOS 13, `navigator.platform` reports `'MacIntel'` on iPad devices to match Safari's desktop-site default. This means `.includes('mac')` returns `true` for iPads too, making it **impossible to distinguish a real Mac from an iPad** using `Navigator.platform` alone. This is one of the reasons MDN marks the property as **deprecated and no longer recommended** for use.
+
 Cool. Except, MDN says it's **deprecated and no longer recommended** for use. <br/> So much for that solution!
 
 ## `Navigator.userAgentData`

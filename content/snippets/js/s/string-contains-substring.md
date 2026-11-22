@@ -19,6 +19,17 @@ str.includes('world'); // true
 str.includes('foo'); // false
 ```
 
+**Derivation:** `str` holds the character sequence `'Hello world'` (11 characters). `includes('world')` scans the string from index 0, finds the exact byte sequence `w-o-r-l-d` starting at index 6, and returns `true`. `includes('foo')` performs the same scan, finds no matching position, and returns `false`.
+
+**Boundary example — position argument:** `String.prototype.includes()` accepts an optional second argument `position` (default `0`) that sets the index at which to begin searching. Passing an offset past the substring's location causes it to be missed:
+
+```js
+const str = 'Hello world';
+str.includes('Hello', 0);  // true  — search starts at index 0, 'Hello' found at 0
+str.includes('Hello', 1);  // false — search starts at index 1, skips the 'H', substring not found
+str.includes('', 100);     // true  — empty string is always found (even beyond string length)
+```
+
 ## String.prototype.indexOf()
 
 Another option is `String.prototype.indexOf()`, which can be preferable if you need to support legacy browsers. As this methods returns the index of the first occurrence of the substring, you need to compare it to `-1` to know if the substring was found or not.

@@ -25,6 +25,15 @@ const nums = [1, 2, 3, 4];
 const isEven = n => n % 2 === 0;
 remove(nums, isEven); // [1, 3]
 nums; // [1, 2, 3, 4]
+
+// Annotation: intermediate values produced by negate(isEven) per element:
+//   negate(isEven)(1) = !false = true  → 1 kept
+//   negate(isEven)(2) = !true  = false → 2 removed
+//   negate(isEven)(3) = !false = true  → 3 kept
+//   negate(isEven)(4) = !true  = false → 4 removed
+
+// Boundary: all elements match — result is an empty array
+remove([2, 4, 6], isEven); // []
 ```
 
 ## Mutating the array

@@ -1,0 +1,49 @@
+{
+  "node_version": "v22.14.0",
+  "article": "content/snippets/js/s/string-contains-substring.md",
+  "actual": {
+    "r1": true,
+    "r2": false,
+    "r3": true,
+    "r4": false,
+    "r5": true
+  },
+  "expectations": [
+    {
+      "key": "r1",
+      "expected": true,
+      "got": true,
+      "pass": true,
+      "desc": "str.includes('world')           \u2192 true  (substring present)"
+    },
+    {
+      "key": "r2",
+      "expected": false,
+      "got": false,
+      "pass": true,
+      "desc": "str.includes('foo')             \u2192 false (substring absent)"
+    },
+    {
+      "key": "r3",
+      "expected": true,
+      "got": true,
+      "pass": true,
+      "desc": "str.includes('Hello', 0)        \u2192 true  (found at position 0)"
+    },
+    {
+      "key": "r4",
+      "expected": false,
+      "got": false,
+      "pass": true,
+      "desc": "str.includes('Hello', 1)        \u2192 false (search starts after 'H')"
+    },
+    {
+      "key": "r5",
+      "expected": true,
+      "got": true,
+      "pass": true,
+      "desc": "str.includes('', 100)           \u2192 true  (empty string always found)"
+    }
+  ],
+  "failures": []
+}

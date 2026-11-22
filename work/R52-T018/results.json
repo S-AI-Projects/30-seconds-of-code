@@ -1,0 +1,31 @@
+{
+  "node_version": "v22.14.0",
+  "article_path": "/Users/unnatigupta/Downloads/SNAI PROJECT/content/snippets/js/s/weekday-name.md",
+  "inputs": {
+    "articleExample": {
+      "date": "05/27/2024",
+      "locale": "de-DE"
+    },
+    "boundaryExample": {
+      "date": "05/27/2024",
+      "locale": "fr-FR"
+    },
+    "misconception": {
+      "input": "string '05/27/2024'"
+    }
+  },
+  "expected": {
+    "articleExample_deDE": "Montag",
+    "boundaryExample_frFR": "lundi",
+    "misconception_stringInput_errorType": "TypeError",
+    "boundaryExample_frFR_isNotEnglish": true
+  },
+  "actual": {
+    "articleExample_deDE": "Montag",
+    "boundaryExample_frFR": "lundi",
+    "misconception_stringInput_errorType": "TypeError",
+    "boundaryExample_frFR_isNotEnglish": true
+  },
+  "failures": [],
+  "passed": true
+}

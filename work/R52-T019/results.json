@@ -1,0 +1,40 @@
+{
+  "node_version": "v22.14.0",
+  "article_path": "/Users/unnatigupta/Downloads/SNAI PROJECT/content/snippets/js/s/indexed-object-collections.md",
+  "bug_check": {
+    "description": "forEach parameter must be 'object' not 'obj' to match body references",
+    "passed": true
+  },
+  "inputs": {
+    "articleExample_1": {
+      "id": 243,
+      "expected_name": "Cherry"
+    },
+    "articleExample_2": {
+      "id": 400,
+      "expected_name": "Apple"
+    },
+    "articleExample_3": {
+      "id": 840,
+      "expected_name": "Banana"
+    },
+    "boundary_missing": {
+      "id": 999,
+      "expected": "undefined"
+    },
+    "boundary_indexSize": {
+      "added": 5,
+      "expected_size": 5
+    }
+  },
+  "actual": {
+    "get_243": "{\"id\":243,\"name\":\"Cherry\"}",
+    "get_400": "{\"id\":400,\"name\":\"Apple\"}",
+    "get_840": "{\"id\":840,\"name\":\"Banana\"}",
+    "indexSize": 5,
+    "mapGet_works": true,
+    "get_243_isNotApple": true
+  },
+  "failures": [],
+  "passed": true
+}
