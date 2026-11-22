@@ -23,6 +23,15 @@ dayName(new Date()); // 'Monday'
 dayName(new Date('05/27/2024'), 'de-DE'); // 'Montag'
 ```
 
+The function accepts any valid [BCP 47 locale tag](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument). Omitting the second argument returns the name in the **runtime's default locale**.
+
+```js
+// Boundary example: French locale
+dayName(new Date('05/27/2024'), 'fr-FR'); // 'lundi'
+```
+
+> **Common misconception:** `dayName` requires a `Date` object as its first argument. Passing a plain string (e.g. `dayName('05/27/2024')`) throws a `TypeError` because strings do not have a `toLocaleDateString` method — they are not `Date` instances. Always wrap the value with `new Date(...)` before calling `dayName`.
+
 ## Short weekday name
 
 Similarly, you can get the **short name** of the weekday by using the [`{ weekday: 'short' }`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#short) option. This will return the abbreviated name of the weekday (e.g., `'Mon'`, `'Tue'`, `'Wed'`).
