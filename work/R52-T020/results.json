@@ -1,0 +1,38 @@
+{
+  "node_version": "v22.14.0",
+  "article_path": "/Users/unnatigupta/Downloads/SNAI PROJECT/content/snippets/js/s/browser-os-detection.md",
+  "ismac_line": "const isMac = navigator.platform.toLowerCase().includes('mac');",
+  "inputs": {
+    "article_example": "platform='MacIntel' \u2192 isMac=true",
+    "boundary_win32": "platform='Win32' \u2192 isMac=false",
+    "boundary_linux": "platform='Linux x86_64' \u2192 isMac=false",
+    "mutant_distinguishing": "platform='something_mac': correct=true, mutant=false"
+  },
+  "expected": {
+    "macIntel": true,
+    "stepLower": "macintel",
+    "stepIncludes": true,
+    "win32": false,
+    "linuxX86": false,
+    "mutant_macIntel_correct": true,
+    "mutant_macIntel_mutant": true,
+    "mutant_distinguish_correct": true,
+    "mutant_distinguish_mutant": false,
+    "win32_isNotMac": true
+  },
+  "actual": {
+    "macIntel": true,
+    "stepLower": "macintel",
+    "stepIncludes": true,
+    "win32": false,
+    "linuxX86": false,
+    "ipadMacIntel": true,
+    "mutant_macIntel_correct": true,
+    "mutant_macIntel_mutant": true,
+    "mutant_distinguish_correct": true,
+    "mutant_distinguish_mutant": false,
+    "win32_isNotMac": true
+  },
+  "failures": [],
+  "passed": true
+}
