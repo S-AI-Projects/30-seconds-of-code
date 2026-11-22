@@ -28,6 +28,23 @@ const parseIntegerBase16 = parseInteger.bind(null, 16);
 parseIntegerBase16('10'); // 16 (10 in base 16)
 ```
 
+### Resource behavior: time, space, and argument copying
+
+`flip` is a lightweight higher-order wrapper that incurs fixed overhead per call:
+
+- **Time complexity:** $O(k)$ per invocation where $k$ is the number of arguments passed. Gathering `...rest` copies the remaining arguments into a newly allocated array, and spreading `...rest` unpacks them into the callee stack frame.
+- **Space complexity:** $O(k)$ temporary heap allocation per call for the `rest` array. The wrapper closure retains a single reference to `fn` ($O(1)$ persistent space).
+- **Copy vs. view behavior:** In JavaScript, argument rest and spread operations (`...rest`) create shallow copies of references or primitive values. Object references passed as arguments are copied by reference without cloning the underlying object instances.
+
+### Boundary example: single argument
+
+When invoked with only a single argument, `first` receives that argument, `rest` evaluates to an empty array (`[]`), and `fn(...rest, first)` unpacks zero rest elements, passing `first` unchanged as the sole argument:
+
+```js
+const identity = flip(x => x);
+identity('hello'); // 'hello'
+```
+
 > [!NOTE]
 >
 > `Number.parseInt()` is a very clear example of how JavaScript's APIs might be ill-optimized for **currying and functional programming**. It takes the base as the second argument, which is not very convenient when partially applying the function. Flipping the arguments makes it easier to use in a curried context.
